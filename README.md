@@ -5,22 +5,16 @@ Un microserviciu Spring Boot pentru gestionarea task-urilor (to-do), securizat c
 ---
 
 ## 📦 Arhitectură
-       [ React Frontend ]
-                |
-    login / register / google
-                |
-                v
-       [ Auth Server ]
-           |       |
-       [   emite JWT ]       
-           |       |       
-                   v|      
-    [ Authorization: Bearer <JWT> ]
-            v
-        [ Todo App API ]
-            |
-        validează JWT +
-     gestionează TODO-urile
+```text
+[ React Frontend ]
+        |
+        | --> login / register / Google OAuth
+        ↓
+[ Auth Server ] -- emite JWT (access + refresh)
+        |
+        ↓ (Authorization: Bearer <JWT>)
+[ Todo App API ] -- validează JWT + gestionează TODO-urile
+```
 
 ---
 
@@ -34,7 +28,7 @@ Un microserviciu Spring Boot pentru gestionarea task-urilor (to-do), securizat c
 
 ---
 
-## ⚙️ Configurație
+~~## ⚙️ Configurație~~
 
 ### 🔑 JWT
 
