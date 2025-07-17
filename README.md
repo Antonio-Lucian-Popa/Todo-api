@@ -28,8 +28,6 @@ Un microserviciu Spring Boot pentru gestionarea task-urilor (to-do), securizat c
 
 ---
 
-~~## ⚙️ Configurație~~
-
 ### 🔑 JWT
 
 Asigură-te că folosești aceeași cheie JWT ca și în `auth-server`.
