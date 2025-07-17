@@ -3,7 +3,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://antonio-dev.go.ro:15880/feetFlowDb
+    url: jdbc:postgresql://antonio-dev.go.ro:15883/todoDb
     username: postgres
     password: password
     driver-class-name: org.postgresql.Driver
