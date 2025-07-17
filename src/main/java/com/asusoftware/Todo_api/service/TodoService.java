@@ -53,8 +53,15 @@ public class TodoService {
         Todo todo = todoRepository.findByIdAndUserEmail(todoId, email)
                 .orElseThrow(() -> new RuntimeException("Todo not found"));
 
-        todo.setTitle(request.getTitle());
-        todo.setDescription(request.getDescription());
+        if(request.getTitle() != null && !request.getTitle().isEmpty()) {
+            todo.setTitle(request.getTitle());
+        }
+
+        if(request.getDescription() != null && !request.getDescription().isEmpty()) {
+            todo.setDescription(request.getDescription());
+        }
+
+        todo.setCompleted(request.isCompleted());
 
         return TodoResponse.fromEntity(todoRepository.save(todo));
     }

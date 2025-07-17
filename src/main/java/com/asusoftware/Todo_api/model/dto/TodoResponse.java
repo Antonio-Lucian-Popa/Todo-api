@@ -15,6 +15,7 @@ public class TodoResponse {
     private String title;
     private String description;
     private LocalDateTime createdAt;
+    private Boolean completed;
 
     public static TodoResponse fromEntity(Todo todo) {
         return TodoResponse.builder()
@@ -22,6 +23,7 @@ public class TodoResponse {
                 .title(todo.getTitle())
                 .description(todo.getDescription())
                 .createdAt(todo.getCreatedAt())
+                .completed(todo.isCompleted())
                 .build();
     }
 }

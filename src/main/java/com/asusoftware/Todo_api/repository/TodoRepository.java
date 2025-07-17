@@ -11,9 +11,6 @@ import java.util.UUID;
 
 @Repository
 public interface TodoRepository extends JpaRepository<Todo, UUID> {
-    List<Todo> findAllByUserId(UUID userId);
-    List<Todo> findByUserIdAndCreatedAt(UUID userId, LocalDateTime date);
-    Optional<Todo> findByIdAndUserId(UUID todoId, UUID userId);
 
     List<Todo> findAllByUserEmail(String email);
     List<Todo> findByUserEmailAndCreatedAt(String email, LocalDateTime date);
