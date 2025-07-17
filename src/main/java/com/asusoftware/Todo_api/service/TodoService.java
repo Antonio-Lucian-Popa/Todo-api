@@ -21,27 +21,27 @@ public class TodoService {
 
     private final TodoRepository todoRepository;
 
-    public List<TodoResponse> getTodosByUser(UUID userId) {
-        return todoRepository.findAllByUserId(userId).stream()
+    public List<TodoResponse> getTodosByUser(String email) {
+        return todoRepository.findAllByUserEmail(email).stream()
                 .map(TodoResponse::fromEntity)
                 .collect(Collectors.toList());
     }
 
-    public List<TodoResponse> getTodosByDate(UUID userId, LocalDateTime date) {
-        return todoRepository.findByUserIdAndCreatedAt(userId, date).stream()
+    public List<TodoResponse> getTodosByDate(String email, LocalDateTime date) {
+        return todoRepository.findByUserEmailAndCreatedAt(email, date).stream()
                 .map(TodoResponse::fromEntity)
                 .collect(Collectors.toList());
     }
 
-    public TodoResponse getTodoById(UUID userId, UUID todoId) {
-        Todo todo = todoRepository.findByIdAndUserId(todoId, userId)
+    public TodoResponse getTodoById(String email, UUID todoId) {
+        Todo todo = todoRepository.findByIdAndUserEmail(todoId, email)
                 .orElseThrow(() -> new RuntimeException("Todo not found"));
         return TodoResponse.fromEntity(todo);
     }
 
-    public TodoResponse createTodo(UUID userId, TodoRequest request) {
+    public TodoResponse createTodo(String email, TodoRequest request) {
         Todo todo = Todo.builder()
-                .userId(userId)
+                .userEmail(email)
                 .title(request.getTitle())
                 .description(request.getDescription())
                 .createdAt(LocalDateTime.now())
@@ -49,8 +49,8 @@ public class TodoService {
         return TodoResponse.fromEntity(todoRepository.save(todo));
     }
 
-    public TodoResponse updateTodo(UUID userId, UUID todoId, TodoRequest request) {
-        Todo todo = todoRepository.findByIdAndUserId(todoId, userId)
+    public TodoResponse updateTodo(String email, UUID todoId, TodoRequest request) {
+        Todo todo = todoRepository.findByIdAndUserEmail(todoId, email)
                 .orElseThrow(() -> new RuntimeException("Todo not found"));
 
         todo.setTitle(request.getTitle());
@@ -59,8 +59,8 @@ public class TodoService {
         return TodoResponse.fromEntity(todoRepository.save(todo));
     }
 
-    public void deleteTodo(UUID userId, UUID todoId) {
-        Todo todo = todoRepository.findByIdAndUserId(todoId, userId)
+    public void deleteTodo(String email, UUID todoId) {
+        Todo todo = todoRepository.findByIdAndUserEmail(todoId, email)
                 .orElseThrow(() -> new RuntimeException("Todo not found"));
         todoRepository.delete(todo);
     }

@@ -13,45 +13,45 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/todos")
+@RequestMapping("/todos")
 @RequiredArgsConstructor
 public class TodoController {
 
     private final TodoService todoService;
 
-    private UUID extractUserId(Principal principal) {
-        return UUID.fromString(principal.getName());
+    private String extractUser(Principal principal) {
+        return principal.getName();
     }
 
     @GetMapping
     public List<TodoResponse> getAllTodos(Principal principal) {
-        return todoService.getTodosByUser(extractUserId(principal));
+        return todoService.getTodosByUser(extractUser(principal));
     }
 
     @GetMapping("/filter")
     public List<TodoResponse> getTodosByDate(@RequestParam LocalDateTime date, Principal principal) {
-        return todoService.getTodosByDate(extractUserId(principal), date);
+        return todoService.getTodosByDate(extractUser(principal), date);
     }
 
     @GetMapping("/{id}")
     public TodoResponse getTodoById(@PathVariable UUID id, Principal principal) {
-        return todoService.getTodoById(extractUserId(principal), id);
+        return todoService.getTodoById(extractUser(principal), id);
     }
 
     @PostMapping
     public TodoResponse createTodo(@RequestBody TodoRequest request, Principal principal) {
-        return todoService.createTodo(extractUserId(principal), request);
+        return todoService.createTodo(extractUser(principal), request);
     }
 
     @PutMapping("/{id}")
     public TodoResponse updateTodo(@PathVariable UUID id,
                                    @RequestBody TodoRequest request,
                                    Principal principal) {
-        return todoService.updateTodo(extractUserId(principal), id, request);
+        return todoService.updateTodo(extractUser(principal), id, request);
     }
 
     @DeleteMapping("/{id}")
     public void deleteTodo(@PathVariable UUID id, Principal principal) {
-        todoService.deleteTodo(extractUserId(principal), id);
+        todoService.deleteTodo(extractUser(principal), id);
     }
 }

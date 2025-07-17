@@ -23,7 +23,7 @@ public class Todo {
     private String description;
     private boolean completed;
 
-    private UUID userId; // 🔁 legătura cu userul prin UUID
+    private String userEmail; // 🔁 legătura cu userul prin UUID
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
